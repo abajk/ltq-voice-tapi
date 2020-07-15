@@ -8,14 +8,20 @@
                 <stringAttribute value="DEFINES"/>
                 <stringAttribute value="EXPAND_DBG"/>
             </listAttribute>
-            <stringAttribute key="BLD::Info|GlobalMacro|DEFINES" value="-DVXWORKS -DIFXOS_INTERFACE_CHECK"/>
+            <stringAttribute key="BLD::Info|GlobalMacro|DEFINES" value="-DVXWORKS -DTAPI_DTMF -DTAPI_VOICE -DTAPI_CID -DENABLE_TRACE -DTAPI_ONE_DEVNODE -DSYS_TIMERLIB_VXWORKS_H -DINCLUDE_POSIX_TIMERS -DTAPI_METERING -DEVENT_LOGGER_DEBUG"/>
             <stringAttribute key="BLD::Info|GlobalMacro|EXPAND_DBG" value="0"/>
             <stringAttribute key="BLD::Info|GlobalMacro|PROJECT_TYPE" value="DKM"/>
             <listAttribute key="BLD::Info|Incl|MIPS32sfgnu">
                 <stringAttribute value="-I$(WIND_BASE)/target/h"/>
                 <stringAttribute value="-I$(WIND_BASE)/target/h/wrn/coreip"/>
-                <stringAttribute value="-I$(PRJ_ROOT_DIR)/src/include"/>
-                <stringAttribute value="-I$(PRJ_ROOT_DIR)/src/include/vxworks"/>
+                <stringAttribute value="-I$(WIND_BASE)/target/config/svip_mips32sf"/>
+                <stringAttribute value="-I$(PRJ_ROOT_DIR)"/>
+                <stringAttribute value="-I$(PRJ_ROOT_DIR)/include"/>
+                <stringAttribute value="-I$(PRJ_ROOT_DIR)/src/common/src"/>
+                <stringAttribute value="-I$(PRJ_ROOT_DIR)/src"/>
+                <stringAttribute value="-I%Proj-event_logger%/include"/>
+                <stringAttribute value="-I%Proj-lib_ifxos%/src/include"/>
+                <stringAttribute value="-I%Proj-lib_ifxos%/src/include/vxworks"/>
             </listAttribute>
             <listAttribute key="BLD::Info|Macros">
                 <stringAttribute value="VX_CPU_FAMILY"/>
@@ -103,7 +109,7 @@
         </mapAttribute>
     </attributes>
     <buildtargets>
-        <buildtarget buildtool="Partial Image Linker" name="lib_ifxos" passed="true" targetname="lib_ifxos">
+        <buildtarget buildtool="Partial Image Linker" name="drv_tapi" passed="true" targetname="drv_tapi">
             <attributes>
                 <mapAttribute>
                     <stringAttribute key="BLD::Info|Tool|Librarian|dbgFlags|MIPS32sfgnu" value="-g3 -O1"/>
@@ -113,31 +119,29 @@
                 </mapAttribute>
             </attributes>
             <contents>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_time.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_device_access.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_event.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_file_access.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_lock.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_memory_alloc.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_misc.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_memory_map.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_mutex.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_pipe.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_print.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_print_io.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_select.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_socket.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_termios.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_thread.c"/>
-                <file name="/lib_ifxos/src/vxworks/ifxos_vxworks_copy_user_space.c"/>
-                <file name="/lib_ifxos/src/common/ifxos_version.c"/>
-                <file name="/lib_ifxos/src/common/ifxos_sys_show.c"/>
-                <file name="/lib_ifxos/src/common/ifxos_debug.c"/>
-                <file name="/lib_ifxos/src/common/ifx_ini_access.c"/>
-                <file name="/lib_ifxos/src/common/ifx_fifo.c"/>
-                <file name="/lib_ifxos/src/common/ifx_getopt_ext.c"/>
-                <file name="/lib_ifxos/src/common/ifx_board_config.c"/>
-                <file name="/lib_ifxos/src/common/ifx_crc.c"/>
+                <file name="/drv_tapi/src/drv_tapi_cid.c"/>
+                <file name="/drv_tapi/src/drv_tapi_common.c"/>
+                <file name="/drv_tapi/src/drv_tapi_dial.c"/>
+                <file name="/drv_tapi/src/drv_tapi_event.c"/>
+                <file name="/drv_tapi/src/drv_tapi_debug.c"/>
+                <file name="/drv_tapi/src/drv_tapi_init.c"/>
+                <file name="/drv_tapi/src/drv_tapi_ioctl.c"/>
+                <file name="/drv_tapi/src/drv_tapi_meter.c"/>
+                <file name="/drv_tapi/src/drv_tapi_misc.c"/>
+                <file name="/drv_tapi/src/drv_tapi_opcontrol.c"/>
+                <file name="/drv_tapi/src/drv_tapi_pcm.c"/>
+                <file name="/drv_tapi/src/drv_tapi_ring.c"/>
+                <file name="/drv_tapi/src/drv_tapi_stream.c"/>
+                <file name="/drv_tapi/src/drv_tapi_tone.c"/>
+                <file name="/drv_tapi/src/drv_tapi_voice.c"/>
+                <file name="/drv_tapi/src/drv_tapi_vxworks.c"/>
+                <file name="/drv_tapi/src/lib/lib_fifo.c"/>
+                <file name="/drv_tapi/src/lib/lib_bufferpool.c"/>
+                <file name="/drv_tapi/src/common/src/sys_drv_debug.c"/>
+                <file name="/drv_tapi/src/common/src/sys_drv_delaylib_vxworks.c"/>
+                <file name="/drv_tapi/src/common/src/sys_drv_timerlib_vxworks.c"/>
+                <file name="/drv_tapi/src/drv_tapi_fxo.c"/>
+                <file name="/drv_tapi/src/common/src/sys_drv_fifo.c"/>
             </contents>
         </buildtarget>
     </buildtargets>
